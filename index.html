@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>冯忠辉 - 地理信息科学学生</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      body {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+        line-height: 1.6;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+
+      nav {
+        background-color: #2d4059;
+        padding: 1rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .nav-link {
+        color: #70a1d7;
+        text-decoration: none;
+        margin: 0 1.5rem;
+        transition: all 0.3s;
+        font-size: 1.1rem;
+      }
+
+      .nav-link:hover {
+        color: #00e5ff;
+        transform: translateY(-2px);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 80px auto 0;
+        padding: 2rem;
+      }
+
+      .header {
+        text-align: center;
+        padding: 3rem 0;
+        border-bottom: 2px solid #00bcd4;
+        margin-bottom: 3rem;
+      }
+
+      .avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 3px solid #00bcd4;
+        margin: 0 auto 1rem;
+        object-fit: cover;
+      }
+
+      .section {
+        background-color: #262626;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .section-title {
+        color: #00bcd4;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #333;
+      }
+
+      .skills-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .skill-item {
+        background-color: #333;
+        padding: 1rem;
+        border-radius: 4px;
+        flex: 1 1 300px;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+        margin-left: 1rem;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background-color: #00bcd4;
+      }
+
+      .timeline-item {
+        margin-bottom: 2rem;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -6px;
+        top: 5px;
+        width: 12px;
+        height: 12px;
+        background-color: #00bcd4;
+        border-radius: 50%;
+      }
+
+      .contact-info {
+        background-color: #2d2d2d;
+        padding: 2rem;
+        border-radius: 10px;
+        border: 1px solid #00bcd4;
+        box-shadow: 0 2px 4px rgba(0, 188, 212, 0.2);
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        transition: transform 0.3s ease;
+      }
+
+      .contact-item:hover {
+        transform: translateX(10px);
+      }
+
+      .contact-item i {
+        color: #00bcd4;
+        width: 30px;
+        text-align: center;
+        font-size: 1.2rem;
+      }
+
+      #tableContainer table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+      }
+
+      #tableContainer td {
+        padding: 0.8rem;
+        border: 1px solid #70a1d7;
+        text-align: center;
+        color: #e0e0e0;
+        background: #2d405966;
+        transition: background 0.3s;
+      }
+
+      #tableContainer td:hover {
+        background: #00bcd433;
+      }
+
+      .input-group {
+        margin: 10px 0;
+      }
+
+      input[type="number"] {
+        padding: 8px;
+        background: #333;
+        border: 1px solid #00bcd4;
+        border-radius: 4px;
+        color: #e0e0e0;
+      }
+
+      button {
+        padding: 8px 16px;
+        background: #00bcd4;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      button:hover {
+        background: #008c9e;
+        transform: translateY(-2px);
+      }
+      .button-group {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .button-group button {
+        margin: 0;
+      }
+
+      @media (max-width: 768px) {
+        .nav-container {
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+        .skills-container {
+          flex-direction: column;
+        }
+        .avatar {
+          width: 120px;
+          height: 120px;
+        }
+      }
+      #dragArea {
+        height: 300px;
+        border: 2px dashed #666;
+        position: relative;
+        margin-top: 1rem;
+      }
+
+      #dragBox {
+        width: 100px;
+        height: 60px;
+        background: #ff4444;
+        position: absolute;
+        cursor: move;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+
+      /* 新增书籍表格样式 */
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 12px;
+        border: 1px solid #70a1d7;
+        text-align: left;
+      }
+
+      .data-table th {
+        background: #2d4059;
+      }
+
+      .filter-select {
+        padding: 8px 12px;
+        background: #333;
+        border: 1px solid #00bcd4;
+        color: #e0e0e0;
+        margin-bottom: 1rem;
+        width: 200px;
+      }
+      #dragArea {
+        position: relative; /* 新增定位约束 */
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <a href="#about" class="nav-link">关于</a>
+        <a href="#skills" class="nav-link">技能</a>
+        <a href="#projects" class="nav-link">项目</a>
+        <a href="#evaluation" class="nav-link">在线测评</a>
+        <a href="#multiplication" class="nav-link">数学工具</a>
+        <a href="#drag-demo" class="nav-link">交互实验</a>
+        <a href="#xml-data" class="nav-link">书籍数据</a>
+        <a href="#contact" class="nav-link">联系</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <header class="header">
+        <img src="c.jpg" alt="学生头像" class="avatar" />
+        <h1>冯忠辉</h1>
+        <p>山东科技大学地理信息科学2023级学生 | 本科在读</p>
+      </header>
+
+      <section class="section" id="about">
+        <h2 class="section-title">关于我</h2>
+        <p>
+          山东科技大学地理信息科学专业大二学生，主修课程包括《地理信息系统原理》《C++程序设计》《C#程序设计》《空间数据库》《计算机图形学》等，基本掌握ArcGIS、superMap等专业软件，主要的兴趣爱好有编程，足球，乒乓球等。
+        </p>
+      </section>
+
+      <section class="section" id="skills">
+        <h2 class="section-title">专业技能</h2>
+        <div class="skills-container">
+          <div class="skill-item">
+            <h3>GIS技术</h3>
+            <p>ENVI</p>
+            <p>ArcGIS 10.8.2</p>
+            <p>SuperMap</p>
+            <p>MapGIS</p>
+          </div>
+          <div class="skill-item">
+            <h3>编程开发</h3>
+            <p>JavaScript (Cesium框架)</p>
+            <p>Java</p>
+            <p>C++</p>
+            <p>C#</p>
+            <p>OpenGL</p>
+            <p>SQL Server</p>
+          </div>
+          <div class="skill-item">
+            <h3>空间分析</h3>
+            <p>遥感影像处理</p>
+            <p>大地测量学及基本测量技术</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <h2 class="section-title">学术项目</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h3>下肢骨畸形矫正系统--“嵙创智疗” (2024-2025)</h3>
+            <p>• 与校内不同专业背景的同学合作组织创业项目</p>
+            <p>• 成功取得省级三等奖的荣誉</p>
+          </div>
+          <div class="timeline-item">
+            <h3>读书会app开发 (2025至今)</h3>
+            <p>• 与同专业的同学们一起参与到项目开发</p>
+            <p>• 目前正在开展当中</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="evaluation">
+        <h2 class="section-title">在线评测</h2>
+        <div class="skill-item">
+          <div class="input-group">
+            <input
+              type="number"
+              id="scoreInput"
+              placeholder="请输入成绩(0-100)"
+              min="0"
+              max="100"
+            />
+            <button onclick="evaluateGrade()">提交</button>
+          </div>
+          <p id="result"></p>
+        </div>
+      </section>
+
+      <section class="section" id="multiplication">
+        <h2 class="section-title">数学工具</h2>
+        <div class="skill-item">
+          <div class="button-group">
+            <button onclick="generateTable()">生成九九乘法表</button>
+            <button onclick="hideTable()" style="margin-left: 10px">
+              隐藏口诀表
+            </button>
+          </div>
+          <div id="tableContainer"></div>
+        </div>
+      </section>
+      <!-- 新增拖拽实验区域 -->
+      <section class="section" id="drag-demo">
+        <h2 class="section-title">交互实验</h2>
+        <div id="dragArea">
+          <div id="dragBox" draggable="true">拖拽我</div>
+        </div>
+      </section>
+
+      <!-- 新增书籍数据展示 -->
+      <section class="section" id="xml-data">
+        <h2 class="section-title">书籍数据</h2>
+        <div class="skill-item">
+          <select id="bookFilter" class="filter-select">
+            <option value="all">全部书籍</option>
+          </select>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>书名</th>
+                <th>作者</th>
+                <th>价格</th>
+                <th>年份</th>
+              </tr>
+            </thead>
+            <tbody id="bookTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="section" id="contact">
+        <h2 class="section-title">联系方式</h2>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>193-0547-4616</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>2287419436@qq.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>山东省青岛市山东科技大学</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // 成绩评价功能
+      function evaluateGrade() {
+        const score = parseInt(document.getElementById("scoreInput").value);
+        const resultElement = document.getElementById("result");
+
+        if (isNaN(score) || score < 0 || score > 100) {
+          resultElement.style.color = "#ff5555";
+          resultElement.textContent = "❗请输入0-100之间的有效成绩";
+          return;
+        }
+
+        let grade;
+        if (score >= 90) grade = "优秀";
+        else if (score >= 80) grade = "良好";
+        else if (score >= 60) grade = "合格";
+        else grade = "不合格";
+
+        resultElement.style.color = "#70a1d7";
+        resultElement.innerHTML = `成绩评级：<strong>${grade}</strong>（${score}分）`;
+      }
+
+      // 生成乘法表功能
+      function generateTable() {
+        const container = document.getElementById("tableContainer");
+        let tableHTML = "<table>";
+
+        for (let i = 1; i <= 9; i++) {
+          tableHTML += "<tr>";
+          for (let j = 1; j <= i; j++) {
+            tableHTML += `<td>${j}×${i}=${j * i}</td>`;
+          }
+          tableHTML += "</tr>";
+        }
+        tableHTML += "</table>";
+        container.innerHTML = tableHTML;
+      }
+      function hideTable() {
+        document.getElementById("tableContainer").innerHTML = "";
+      }
+      // 新增拖拽功能
+      const dragBox = document.getElementById("dragBox");
+      let isDragging = false;
+      let startX, startY, initialX, initialY;
+
+      // 事件处理函数对象（便于移除监听）
+      const dragHandler = {
+        start: function (e) {
+          e.preventDefault();
+          isDragging = true;
+
+          const dragArea = document.getElementById("dragArea");
+          const areaRect = dragArea.getBoundingClientRect();
+
+          // 计算容器边界
+          const maxX = dragArea.clientWidth - dragBox.offsetWidth;
+          const maxY = dragArea.clientHeight - dragBox.offsetHeight;
+
+          // 初始化位置
+          startX = Math.min(Math.max(dragBox.offsetLeft, 0), maxX);
+          startY = Math.min(Math.max(dragBox.offsetTop, 0), maxY);
+
+          // 记录初始鼠标位置
+          initialX = e.clientX;
+          initialY = e.clientY;
+
+          // 动态绑定事件
+          document.addEventListener("mousemove", dragHandler.move);
+          document.addEventListener("mouseup", dragHandler.end);
+        },
+
+        move: function (e) {
+          if (!isDragging) return;
+          e.preventDefault();
+
+          const dragArea = document.getElementById("dragArea");
+          const maxX = dragArea.clientWidth - dragBox.offsetWidth;
+          const maxY = dragArea.clientHeight - dragBox.offsetHeight;
+
+          // 计算偏移并限制边界
+          let newX = startX + (e.clientX - initialX);
+          let newY = startY + (e.clientY - initialY);
+          newX = Math.max(0, Math.min(newX, maxX));
+          newY = Math.max(0, Math.min(newY, maxY));
+
+          // 更新位置
+          dragBox.style.left = newX + "px";
+          dragBox.style.top = newY + "px";
+        },
+
+        end: function (e) {
+          isDragging = false;
+          // 必须移除事件监听
+          document.removeEventListener("mousemove", dragHandler.move);
+          document.removeEventListener("mouseup", dragHandler.end);
+        },
+      };
+
+      // 初始化绑定
+      dragBox.addEventListener("mousedown", dragHandler.start);
+      // 新增XML数据处理
+      function loadBooks() {
+        fetch("books.xml")
+          .then((response) => response.text())
+          .then((str) => {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(str, "text/xml");
+            const books = xmlDoc.getElementsByTagName("book");
+            const filter = document.getElementById("bookFilter");
+
+            Array.from(books).forEach((book) => {
+              // 填充表格
+              const row = document.createElement("tr");
+              ["title", "author", "price", "year"].forEach((tag) => {
+                const td = document.createElement("td");
+                td.textContent = book.getElementsByTagName(tag)[0].textContent;
+                row.appendChild(td);
+              });
+              document.getElementById("bookTableBody").appendChild(row);
+
+              // 填充筛选器
+              const option = document.createElement("option");
+              option.value = book.getElementsByTagName("title")[0].textContent;
+              option.textContent = option.value;
+              filter.appendChild(option);
+            });
+          });
+      }
+
+      // 初始化书籍数据加载
+      window.addEventListener("load", loadBooks);
+
+      // 筛选功能
+      document
+        .getElementById("bookFilter")
+        .addEventListener("change", function () {
+          const selected = this.value;
+          const rows = document.querySelectorAll("#bookTableBody tr");
+
+          rows.forEach((row) => {
+            const title = row.cells[0].textContent;
+            row.style.display =
+              selected === "all" || title === selected ? "" : "none";
+          });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+    <book>
+        <title>地理信息系统导论</title>
+        <author>张康聪</author>
+        <price>68.00</price>
+        <year>2010</year>
+    </book>
+    <book>
+        <title>WebGIS开发从入门到实战</title>
+        <author>吕利利</author>
+        <price>89.00</price>
+        <year>2024</year>
+    </book>
+    <book>
+        <title>空间数据库原理</title>
+        <author>崔铁军</author>
+        <price>58.30</price>
+        <year>2016</year>
+    </book>
+    <book>
+        <title>JavaScript高级编程</title>
+        <author>Nicholas C. Zakas</author>
+        <price>99.00</price>
+        <year>2012</year>
+    </book>
+    <book>
+        <title>计算机图形学基础</title>
+        <author>王卫东</author>
+        <price>59.00</price>
+        <year>2009</year>
+    </book>
+    <book>
+        <title>C++程序设计</title>
+        <author>王卫东</author>
+        <price>49.00</price>
+        <year>2015</year>
+    </book>
+</books>
